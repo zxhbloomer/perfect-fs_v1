@@ -68,7 +68,7 @@ public class FileSystemApplication {
 		}
 		
 		if (prop.isToalioss()){
-//			StoreSource.RegisterListensers(aliService);
+			StoreSource.RegisterListensers(aliService);
 		}
 		
 		if (prop.isTofastdfs()){
