@@ -3,6 +3,7 @@ package com.perfect.FileSystem;
 import com.perfect.FileSystem.Cache.UsesCache;
 import com.perfect.FileSystem.File.StoreSource;
 import com.perfect.FileSystem.Propert.StorageProperties;
+import com.perfect.FileSystem.Service.AliService;
 import com.perfect.FileSystem.Service.FastdfsServcice;
 import com.perfect.FileSystem.Service.MongoService;
 import com.perfect.FileSystem.Service.QiniuService;
@@ -15,6 +16,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.thymeleaf.dialect.springdata.SpringDataDialect;
+//import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
 @SpringBootApplication
 @EnableScheduling
@@ -27,8 +29,8 @@ public class FileSystemApplication {
 	@Autowired
 	QiniuService qiniuService;
 	
-//	@Autowired
-//	AliService aliService;
+	@Autowired
+	AliService aliService;
 	
 	@Autowired
 	FastdfsServcice fastdfsServcice;
