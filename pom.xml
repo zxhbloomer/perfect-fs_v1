@@ -64,12 +64,6 @@
       </dependency>
 
       <dependency>
-        <groupId>io.github.jpenren</groupId>
-        <artifactId>thymeleaf-spring-data-dialect</artifactId>
-        <version>3.4.0</version>
-      </dependency>
-
-      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-aop</artifactId>
         <version>${project.build.springbootversion}</version>
@@ -171,11 +165,6 @@
         <artifactId>qiniu-java-sdk</artifactId>
         <version>7.2.23</version>
       </dependency>
-      <!-- 阿里oss-->
-<!--      <dependency>-->
-<!--        <groupId>com.aliyun.oss</groupId>-->
-<!--        <artifactId>aliyun-sdk-oss</artifactId>-->
-<!--      </dependency>-->
       <!-- mongodb-->
       <dependency>
         <groupId>org.mongodb</groupId>
@@ -183,8 +172,17 @@
         <version>3.10.2</version>
       </dependency>
 
-
-
+      <!-- 阿里oss-->
+      <dependency>
+        <groupId>com.aliyun.oss</groupId>
+        <artifactId>aliyun-sdk-oss</artifactId>
+        <version>3.5.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.jpenren</groupId>
+        <artifactId>thymeleaf-spring-data-dialect</artifactId>
+        <version>3.4.1</version>
+      </dependency>
 
     </dependencies>
   </dependencyManagement>
