@@ -8,6 +8,7 @@ import com.perfect.FileSystem.Service.FastdfsServcice;
 import com.perfect.FileSystem.Service.MongoService;
 import com.perfect.FileSystem.Service.QiniuService;
 import com.perfect.FileSystem.Service.StorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +22,7 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 @SpringBootApplication
 @EnableScheduling
 @EnableConfigurationProperties(StorageProperties.class)
+@Slf4j
 public class FileSystemApplication {
 	
 	@Autowired
@@ -42,7 +44,9 @@ public class FileSystemApplication {
 //	SeaweedfsService seaweedfsService;
 	
 	public static void main(String[] args) {
+		log.info("-----------------------启动开始-------------------------");
 		SpringApplication.run(FileSystemApplication.class, args);
+		log.info("-----------------------启动完毕-------------------------");
 	}
 	
 	@Bean
