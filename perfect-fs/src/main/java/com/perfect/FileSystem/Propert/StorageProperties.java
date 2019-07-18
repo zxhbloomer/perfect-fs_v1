@@ -1,8 +1,10 @@
 package com.perfect.FileSystem.Propert;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@ConfigurationProperties("storage")
+@EnableConfigurationProperties({StorageProperties.class})
+@ConfigurationProperties(prefix = "storage")
 public class StorageProperties {
 
 	private String location = "uploadfiles";
