@@ -1,6 +1,6 @@
-package com.perfect.FileSystem.Utils;
+package com.perfect.filesystem.Utils;
 
-import com.perfect.FileSystem.File.HttpResult;
+import com.perfect.filesystem.File.HttpResult;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpRequestRetryHandler;

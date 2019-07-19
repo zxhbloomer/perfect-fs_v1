@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Propert;
+package com.perfect.filesystem.Propert;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

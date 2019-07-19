@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Entity;
+package com.perfect.filesystem.Entity;
 
 import org.springframework.data.repository.CrudRepository;
 

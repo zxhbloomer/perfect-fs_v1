@@ -1,7 +1,7 @@
-package com.perfect.FileSystem.File;
+package com.perfect.filesystem.File;
 
-import com.perfect.FileSystem.Utils.FilePathUtil;
-import com.perfect.FileSystem.Utils.MimeTypeUtil;
+import com.perfect.filesystem.Utils.FilePathUtil;
+import com.perfect.filesystem.Utils.MimeTypeUtil;
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;

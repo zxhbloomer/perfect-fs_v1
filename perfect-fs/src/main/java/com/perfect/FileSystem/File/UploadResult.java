@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.File;
+package com.perfect.filesystem.File;
 
 //上传后回调信息
 public class UploadResult {

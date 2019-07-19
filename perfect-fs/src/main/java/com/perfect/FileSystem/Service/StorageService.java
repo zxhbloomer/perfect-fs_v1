@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Service;
+package com.perfect.filesystem.Service;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;

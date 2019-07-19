@@ -1,10 +1,10 @@
-package com.perfect.FileSystem.Service;
+package com.perfect.filesystem.Service;
 
-import com.perfect.FileSystem.Cache.FileCache;
-import com.perfect.FileSystem.File.FileListener;
-import com.perfect.FileSystem.File.UploadFileExt;
-import com.perfect.FileSystem.File.UploadResult;
-import com.perfect.FileSystem.Propert.StorageProperties;
+import com.perfect.filesystem.Cache.FileCache;
+import com.perfect.filesystem.File.FileListener;
+import com.perfect.filesystem.File.UploadFileExt;
+import com.perfect.filesystem.File.UploadResult;
+import com.perfect.filesystem.Propert.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

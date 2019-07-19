@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.File;
+package com.perfect.filesystem.File;
 
 //上传文件简单扩展模型
 public class UploadedFile {

@@ -1,8 +1,8 @@
-package com.perfect.FileSystem.Service;
+package com.perfect.filesystem.Service;
 
-import com.perfect.FileSystem.Exception.StorageException;
-import com.perfect.FileSystem.Exception.StorageFileNotFoundException;
-import com.perfect.FileSystem.Propert.StorageProperties;
+import com.perfect.filesystem.Exception.StorageException;
+import com.perfect.filesystem.Exception.StorageFileNotFoundException;
+import com.perfect.filesystem.Propert.StorageProperties;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;

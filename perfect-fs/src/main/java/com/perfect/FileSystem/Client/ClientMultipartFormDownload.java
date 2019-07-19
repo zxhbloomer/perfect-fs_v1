@@ -1,9 +1,9 @@
-package com.perfect.FileSystem.Client;
+package com.perfect.filesystem.Client;
 
 
 //下载测试
 
-import com.perfect.FileSystem.Utils.HttpHelper;
+import com.perfect.filesystem.Utils.HttpHelper;
 
 public class ClientMultipartFormDownload {
 	public static void main(String[] args) throws Exception {

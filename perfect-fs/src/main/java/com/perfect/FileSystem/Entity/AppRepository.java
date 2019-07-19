@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Entity;
+package com.perfect.filesystem.Entity;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ public interface AppRepository extends CrudRepository<App, Integer> {
 	
 	@Query(value = "delete from app where code=?1 ", nativeQuery = true)
     @Modifying
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteAppByCode(String code);
 	
 	@Query(value = "update app set name=?1 where id=?2 ", nativeQuery = true)
     @Modifying
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Integer updateAppName(String name, int id);
 
 }

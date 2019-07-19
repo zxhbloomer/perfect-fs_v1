@@ -1,9 +1,9 @@
-package com.perfect.FileSystem.Service;
+package com.perfect.filesystem.Service;
 
 
-import com.perfect.FileSystem.File.FileListener;
-import com.perfect.FileSystem.File.UploadFileExt;
-import com.perfect.FileSystem.File.UploadResult;
+import com.perfect.filesystem.File.FileListener;
+import com.perfect.filesystem.File.UploadFileExt;
+import com.perfect.filesystem.File.UploadResult;
 import org.springframework.stereotype.Service;
 
 @Service

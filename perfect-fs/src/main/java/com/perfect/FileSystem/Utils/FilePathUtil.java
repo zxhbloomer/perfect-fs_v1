@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Utils;
+package com.perfect.filesystem.Utils;
 
 public class FilePathUtil {
 

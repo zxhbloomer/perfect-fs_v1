@@ -1,7 +1,7 @@
-package com.perfect.FileSystem.Client;
+package com.perfect.filesystem.Client;
 
-import com.perfect.FileSystem.File.HttpResult;
-import com.perfect.FileSystem.Utils.HttpHelper;
+import com.perfect.filesystem.File.HttpResult;
+import com.perfect.filesystem.Utils.HttpHelper;
 
 //Post上传演示
 public class ClientMultipartFormPost {

@@ -1,10 +1,10 @@
-package com.perfect.FileSystem.Service;
+package com.perfect.filesystem.Service;
 
 
-import com.perfect.FileSystem.File.FileListener;
-import com.perfect.FileSystem.File.UploadFileExt;
-import com.perfect.FileSystem.File.UploadResult;
-import com.perfect.FileSystem.Propert.StorageProperties;
+import com.perfect.filesystem.File.FileListener;
+import com.perfect.filesystem.File.UploadFileExt;
+import com.perfect.filesystem.File.UploadResult;
+import com.perfect.filesystem.Propert.StorageProperties;
 import java.io.ByteArrayInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.CompleteMultipartUploadResult;

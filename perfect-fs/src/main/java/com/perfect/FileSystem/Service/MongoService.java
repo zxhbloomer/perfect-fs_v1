@@ -1,10 +1,9 @@
-package com.perfect.FileSystem.Service;
+package com.perfect.filesystem.Service;
 
-import com.perfect.FileSystem.File.FileListener;
-import com.perfect.FileSystem.File.UploadFileExt;
-import com.perfect.FileSystem.File.UploadResult;
-import com.perfect.FileSystem.Propert.StorageProperties;
-import java.io.File;
+import com.perfect.filesystem.File.FileListener;
+import com.perfect.filesystem.File.UploadFileExt;
+import com.perfect.filesystem.File.UploadResult;
+import com.perfect.filesystem.Propert.StorageProperties;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -22,11 +21,9 @@ import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import com.mongodb.client.gridfs.GridFSUploadStream;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
-import com.qiniu.storage.model.DefaultPutRet;
 
 @Service
 public class MongoService  implements FileListener {

@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Dialect;
+package com.perfect.filesystem.Dialect;
 
 import java.sql.Types;
 

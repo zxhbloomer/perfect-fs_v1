@@ -1,4 +1,4 @@
-package com.perfect.FileSystem;
+package com.perfect.filesystem;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

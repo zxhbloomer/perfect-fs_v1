@@ -1,6 +1,6 @@
-package com.perfect.FileSystem.Utils;
+package com.perfect.filesystem.Utils;
 
-import com.perfect.FileSystem.Propert.StorageProperties;
+import com.perfect.filesystem.Propert.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DebugUtil {

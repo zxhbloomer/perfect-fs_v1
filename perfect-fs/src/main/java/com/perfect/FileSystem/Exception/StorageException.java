@@ -1,4 +1,4 @@
-package com.perfect.FileSystem.Exception;
+package com.perfect.filesystem.Exception;
 
 public class StorageException extends RuntimeException {
 

@@ -1,28 +1,37 @@
-package com.perfect.FileSystem;
+package com.perfect.filesystem;
 
-import com.perfect.FileSystem.Cache.UsesCache;
-import com.perfect.FileSystem.File.StoreSource;
-import com.perfect.FileSystem.Propert.StorageProperties;
-import com.perfect.FileSystem.Service.AliService;
-import com.perfect.FileSystem.Service.FastdfsServcice;
-import com.perfect.FileSystem.Service.MongoService;
-import com.perfect.FileSystem.Service.QiniuService;
-import com.perfect.FileSystem.Service.StorageService;
+import com.perfect.filesystem.Cache.UsesCache;
+import com.perfect.filesystem.File.StoreSource;
+import com.perfect.filesystem.Propert.StorageProperties;
+import com.perfect.filesystem.Service.AliService;
+import com.perfect.filesystem.Service.FastdfsServcice;
+import com.perfect.filesystem.Service.MongoService;
+import com.perfect.filesystem.Service.QiniuService;
+import com.perfect.filesystem.Service.StorageService;
+import com.perfect.filesystem.myfs.properties.PerfectFsProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.thymeleaf.dialect.springdata.SpringDataDialect;
 //import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages =
+	{
+		"com.perfect.filesystem.*",
+		"com.perfect.filesystem.myfs.*"
+	})
+@EntityScan(basePackages = {"com.perfect.*"})
 @EnableScheduling
-@EnableConfigurationProperties(StorageProperties.class)
 @Slf4j
+@EnableTransactionManagement
+@EnableConfigurationProperties({PerfectFsProperties.class, StorageProperties.class})
 public class FileSystemApplication {
 	
 	@Autowired

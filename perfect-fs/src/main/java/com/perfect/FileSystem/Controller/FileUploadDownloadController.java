@@ -1,15 +1,15 @@
-package com.perfect.FileSystem.Controller;
+package com.perfect.filesystem.Controller;
 
-import com.perfect.FileSystem.Cache.UsesCache;
-import com.perfect.FileSystem.Entity.Diskfile;
-import com.perfect.FileSystem.Entity.DiskfileRepository;
-import com.perfect.FileSystem.Exception.StorageFileNotFoundException;
-import com.perfect.FileSystem.File.FileListener;
-import com.perfect.FileSystem.File.StoreSource;
-import com.perfect.FileSystem.File.UploadFileExt;
-import com.perfect.FileSystem.Propert.StorageProperties;
-import com.perfect.FileSystem.Service.FileSystemStorageService;
-import com.perfect.FileSystem.Utils.HttpHelper;
+import com.perfect.filesystem.Cache.UsesCache;
+import com.perfect.filesystem.Entity.Diskfile;
+import com.perfect.filesystem.Entity.DiskfileRepository;
+import com.perfect.filesystem.Exception.StorageFileNotFoundException;
+import com.perfect.filesystem.File.FileListener;
+import com.perfect.filesystem.File.StoreSource;
+import com.perfect.filesystem.File.UploadFileExt;
+import com.perfect.filesystem.Propert.StorageProperties;
+import com.perfect.filesystem.Service.FileSystemStorageService;
+import com.perfect.filesystem.Utils.HttpHelper;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Date;
