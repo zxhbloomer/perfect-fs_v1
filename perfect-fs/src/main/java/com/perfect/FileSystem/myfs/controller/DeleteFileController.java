@@ -5,11 +5,10 @@ import com.perfect.filesystem.myfs.properties.PerfectFsProperties;
 import com.perfect.filesystem.myfs.service.TransferService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import sun.awt.ComponentFactory;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zxh
@@ -17,7 +16,8 @@ import sun.awt.ComponentFactory;
 @RestController
 @Slf4j
 @Api("删除相关")
-public class DeleteFileAction {
+@RequestMapping("/api/v1/delete")
+public class DeleteFileController {
 
     @Autowired
     private PerfectFsProperties perfectFsProperties;
@@ -26,14 +26,15 @@ public class DeleteFileAction {
 
     /**
      * 删除指定文件
-     * @param input
+     * @param
      */
     @ApiOperation(value = "删除指定文件", notes = "删除指定文件")
-    @GetMapping(path = "/")
-    public void deleteFile(DeleteFileActionInputPojo input) {
+    @GetMapping(path = "/{fileuuid}")
+    public void deleteFile(
+        @ApiParam(name = "fileuuid", value = "uuid", required = true) @PathVariable("fileuuid") String fileUuid) {
         if (!perfectFsProperties.isRealDelete()) {
             return;
         }
-        transferService.deleteFile(input.getFileUuid());
+        transferService.deleteFile(fileUuid);
     }
 }

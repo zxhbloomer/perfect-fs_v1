@@ -20,11 +20,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+
+/**
+ * @author zxh
+ */
 @RestController
 @Slf4j
 @Api("上传文件")
 @RequestMapping(value = "/api/[^/]+/uploadFile.json")
-public class UploadFileAction extends HttpServlet {
+public class UploadFileController extends HttpServlet {
     @Autowired
     private TransferService fileService;
 
