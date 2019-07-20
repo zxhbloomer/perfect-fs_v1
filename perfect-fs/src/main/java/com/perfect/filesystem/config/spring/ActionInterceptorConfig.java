@@ -1,7 +1,6 @@
 package com.perfect.filesystem.config.spring;
 
 import com.perfect.filesystem.config.interceptor.ActionInterceptor;
-import com.perfect.filesystem.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -41,6 +40,6 @@ public class ActionInterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(0, new CallbackMappingJackson2HttpMessageConverter());
+//        converters.add(0, new CallbackMappingJackson2HttpMessageConverter());
     }
 }
