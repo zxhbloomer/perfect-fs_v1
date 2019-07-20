@@ -196,6 +196,13 @@
         <artifactId>im4java</artifactId>
         <version>1.4.0</version>
       </dependency>
+      <!-- io常用工具类 -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.6</version>
+      </dependency>
+
 
     </dependencies>
   </dependencyManagement>

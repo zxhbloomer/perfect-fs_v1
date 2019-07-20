@@ -21,4 +21,9 @@ public class PerfectFsProperties {
      */
     private String uploadDataPath;
 
+    /**
+     * 简单日志
+     */
+    private boolean simpleLogModel;
+
 }

@@ -1,7 +1,8 @@
-package com.perfect.filesystem.myfs.pojo;
+package com.perfect.filesystem.myfs.bean.pojo;
+
+import lombok.Data;
 
 import java.util.Date;
-import lombok.Data;
 
 @Data
 public class InquireFileOutputPojo

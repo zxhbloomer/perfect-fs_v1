@@ -179,6 +179,11 @@
       <groupId>org.im4java</groupId>
       <artifactId>im4java</artifactId>
     </dependency>
+    <!-- io常用工具类 -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
 
 
   </dependencies>

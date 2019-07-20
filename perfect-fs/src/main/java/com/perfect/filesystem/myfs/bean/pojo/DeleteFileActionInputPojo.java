@@ -1,4 +1,4 @@
-package com.perfect.filesystem.myfs.pojo;
+package com.perfect.filesystem.myfs.bean.pojo;
 
 import lombok.Data;
 

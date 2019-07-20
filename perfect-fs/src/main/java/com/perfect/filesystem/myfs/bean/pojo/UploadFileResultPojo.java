@@ -1,13 +1,16 @@
-package com.perfect.filesystem.myfs.pojo;
+package com.perfect.filesystem.myfs.bean.pojo;
 
 import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author zhangxh
+ */
 @Slf4j
 @ToString
 @Data
-public class UploadFileActionOutputPojo
+public class UploadFileResultPojo
 {
     /**
      * 文件ID
@@ -21,6 +24,10 @@ public class UploadFileActionOutputPojo
      * 文件大小(B)
      */
     private Long fileSize;
+    /**
+     * url
+     */
+    private String url;
 
 //    public String toString()
 //    {
