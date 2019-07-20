@@ -1,4 +1,4 @@
-package com.perfect.filesystem.myfs.bean.pojo;
+package com.perfect.filesystem.myfs.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

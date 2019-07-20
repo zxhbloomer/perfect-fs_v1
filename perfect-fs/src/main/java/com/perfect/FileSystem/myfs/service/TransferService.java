@@ -1,6 +1,6 @@
 package com.perfect.filesystem.myfs.service;
 
-import com.perfect.filesystem.myfs.entity.FileEntryEntity;
+import com.perfect.filesystem.myfs.bean.entity.FileEntryEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 

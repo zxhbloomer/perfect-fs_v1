@@ -1,6 +1,6 @@
 package com.perfect.filesystem.myfs.controller;
 
-import com.perfect.filesystem.myfs.entity.FileEntryEntity;
+import com.perfect.filesystem.myfs.bean.entity.FileEntryEntity;
 import com.perfect.filesystem.myfs.bean.pojo.InquireFileOutputPojo;
 import com.perfect.filesystem.myfs.service.TransferService;
 import io.swagger.annotations.Api;

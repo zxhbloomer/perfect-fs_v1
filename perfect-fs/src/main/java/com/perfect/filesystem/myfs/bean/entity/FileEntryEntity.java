@@ -1,36 +1,37 @@
-package com.perfect.filesystem.myfs.entity;
+package com.perfect.filesystem.myfs.bean.entity;
 
-import com.perfect.filesystem.myfs.properties.PerfectFsProperties;
 import com.perfect.filesystem.myfs.util.UuidUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.File;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * @author zxh
  */
 @Entity
-@Table(name = "FS_FILE_ENTRY")
-public class FileEntryEntity {
-    @Autowired
-    PerfectFsProperties perfectFsProperties;
+@Table(name = "s_file_repository")
+public class FileEntryEntity implements Serializable {
+    private static final long serialVersionUID = 1794670886372121692L;
 
+    @Setter
+    @Getter
     @Id
-    @Column(name = "FILE_UUID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "file_uuid")
     private String fileUuid;
-    @Column(name = "FILE_NAME")
+    @Column(name = "file_name")
     private String fileName;
-    @Column(name = "FILE_SIZE")
+    @Column(name = "file_size")
     private Long fileSize;
-    @Column(name = "RELATIVE_PATH")
+    @Column(name = "relative_path")
     private String relativePath;
-    @Column(name = "CREATE_DT")
+    @Column(name = "create_dt")
     private Date createTime;
 
     public FileEntryEntity() {}
@@ -46,6 +47,9 @@ public class FileEntryEntity {
         this.fileUuid = UuidUtil.randomUUID();
     }
 
+    /**
+     * 获取保存路径
+     */
     private void generateServerPath() {
         if (this.fileUuid == null) {
             return;
@@ -116,11 +120,11 @@ public class FileEntryEntity {
         this.createTime = createTime;
     }
 
-    public String getServerAbsolutePath() {
+    public String getServerAbsolutePath(String filePath) {
         // String absoluteHostPath = ConfigPropertites.getProperties("upload", "data.path", "d:/tmp/fs/") +
         // File.separator + this.relativePath;
-        String absoluteHostPath = perfectFsProperties.getUploadDataPath() + File.separator + this.relativePath;
-//            ConfigPropertites.getProperties("upload", "data.path", "d:/tmp/fs/") + File.separator + this.relativePath;
+        String absoluteHostPath = filePath + File.separator + this.relativePath;
+        // ConfigPropertites.getProperties("upload", "data.path", "d:/tmp/fs/") + File.separator + this.relativePath;
 
         return absoluteHostPath;
     }

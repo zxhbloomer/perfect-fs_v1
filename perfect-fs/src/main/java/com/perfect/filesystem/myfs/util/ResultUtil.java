@@ -1,11 +1,12 @@
 package com.perfect.filesystem.myfs.util;
 
-import com.perfect.filesystem.myfs.bean.pojo.JSONResult;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import com.perfect.filesystem.myfs.bean.JSONResult;
 
 /**
  * json返回值工具类
@@ -39,23 +40,6 @@ public class ResultUtil {
                 .data(data)
                 .build();
     }
-
-//    public static Object success(Integer status, String message, String path, String method, Object data) {
-//        return JSONResult.builder()
-//                .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
-//                .status(status)
-//                .message(message)
-//                .path(path)
-//                .method(method)
-//                .success(true)
-//                .data(data)
-//                .build();
-//
-//    }
-//
-//    public static Result success() {
-//        return (Result) success(null);
-//    }
 
     public static <T>JSONResult<T> error(Integer status, Exception exception, String message, HttpServletRequest request) {
 

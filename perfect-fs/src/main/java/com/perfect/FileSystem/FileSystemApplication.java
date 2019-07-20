@@ -20,8 +20,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.thymeleaf.dialect.springdata.SpringDataDialect;
-//import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
+/**
+ * @author zhangxh
+ */
 @SpringBootApplication(scanBasePackages =
 	{
 		"com.perfect.filesystem.*",

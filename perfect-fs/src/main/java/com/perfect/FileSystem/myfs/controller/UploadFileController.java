@@ -1,17 +1,19 @@
 package com.perfect.filesystem.myfs.controller;
 
-import com.perfect.filesystem.myfs.bean.pojo.JSONResult;
-import com.perfect.filesystem.myfs.bean.pojo.UploadFileResultPojo;
-import com.perfect.filesystem.myfs.entity.FileEntryEntity;
-import com.perfect.filesystem.myfs.service.TransferService;
-import com.perfect.filesystem.myfs.util.CommonUtil;
-import com.perfect.filesystem.myfs.util.ResultUtil;
-import io.swagger.annotations.Api;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.perfect.filesystem.myfs.bean.JSONResult;
+import com.perfect.filesystem.myfs.bean.entity.FileEntryEntity;
+import com.perfect.filesystem.myfs.bean.pojo.UploadFileResultPojo;
+import com.perfect.filesystem.myfs.service.TransferService;
+import com.perfect.filesystem.myfs.util.CommonUtil;
+import com.perfect.filesystem.myfs.util.ResultUtil;
+
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author zxh

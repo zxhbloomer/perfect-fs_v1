@@ -1,7 +1,8 @@
 package com.perfect.filesystem.myfs.service.impl;
 
-import com.perfect.filesystem.myfs.entity.FileEntryEntity;
-import com.perfect.filesystem.myfs.entity.FileEntryRepository;
+import com.perfect.filesystem.myfs.bean.entity.FileEntryEntity;
+import com.perfect.filesystem.myfs.bean.entity.FileEntryRepository;
+import com.perfect.filesystem.myfs.properties.PerfectFsProperties;
 import com.perfect.filesystem.myfs.service.TransferService;
 import com.perfect.filesystem.myfs.util.CommonUtil;
 import com.perfect.filesystem.myfs.util.DateTimeUtil;
@@ -21,6 +22,8 @@ public class TransferServiceImpl implements TransferService {
 
     @Autowired
     private FileEntryRepository fileEntryRepository;
+    @Autowired
+    PerfectFsProperties perfectFsProperties;
 
     private static final int BUFFER_SIZE_10K = 10240;
     private static final Pattern P_CHARSET = Pattern.compile("(?i)(<[^>]+charset=)([^\\s\"'>]+)");
@@ -37,7 +40,7 @@ public class TransferServiceImpl implements TransferService {
         String originalName = CommonUtil.getFilename(multipartFile);
         FileEntryEntity fileEntryEntity = new FileEntryEntity(originalName);
         try {
-            File file = new File(fileEntryEntity.getServerAbsolutePath());
+            File file = new File(fileEntryEntity.getServerAbsolutePath(perfectFsProperties.getUploadDataPath()));
             File parentDir = file.getParentFile();
             if ((parentDir != null) && (!parentDir.exists())) {
                 parentDir.mkdirs();
@@ -126,7 +129,7 @@ public class TransferServiceImpl implements TransferService {
     @Override
     public void deleteFile(String fileUid) {
         FileEntryEntity fileEntryEntity = inquireFileEntryEntity(fileUid);
-        File f = new File(fileEntryEntity.getServerAbsolutePath());
+        File f = new File(fileEntryEntity.getServerAbsolutePath(perfectFsProperties.getUploadDataPath()));
         f.delete();
 //        PersistUtil.delete(FileEntryEntity);
         fileEntryRepository.delete(fileEntryEntity);

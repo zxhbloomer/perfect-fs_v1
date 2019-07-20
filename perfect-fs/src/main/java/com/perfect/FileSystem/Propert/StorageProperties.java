@@ -3,6 +3,9 @@ package com.perfect.filesystem.Propert;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+/**
+ * @author zhangxh
+ */
 @EnableConfigurationProperties({StorageProperties.class})
 @ConfigurationProperties(prefix = "storage")
 public class StorageProperties {

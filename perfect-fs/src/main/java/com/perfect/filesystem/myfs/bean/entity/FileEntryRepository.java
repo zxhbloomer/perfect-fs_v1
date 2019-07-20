@@ -1,4 +1,4 @@
-package com.perfect.filesystem.myfs.entity;
+package com.perfect.filesystem.myfs.bean.entity;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
