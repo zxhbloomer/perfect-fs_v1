@@ -1,5 +1,9 @@
 package com.perfect.filesystem.Utils;
 
+
+/**
+ * @author zhangxh
+ */
 public class FilePathUtil {
 
 	public static final String DIR_SPLITER = "/";

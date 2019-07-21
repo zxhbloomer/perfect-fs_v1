@@ -1,6 +1,5 @@
 package com.perfect.filesystem;
 
-import com.perfect.filesystem.Cache.UsesCache;
 import com.perfect.filesystem.File.StoreSource;
 import com.perfect.filesystem.Propert.StorageProperties;
 import com.perfect.filesystem.Service.AliService;
@@ -24,89 +23,71 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 /**
  * @author zhangxh
  */
-@SpringBootApplication(scanBasePackages =
-	{
-		"com.perfect.filesystem.*",
-		"com.perfect.filesystem.myfs.*"
-	})
+@SpringBootApplication(scanBasePackages = {"com.perfect.filesystem.*", "com.perfect.filesystem.myfs.*"})
 @EntityScan(basePackages = {"com.perfect.*"})
 @EnableScheduling
 @Slf4j
 @EnableTransactionManagement
 @EnableConfigurationProperties({PerfectFsProperties.class, StorageProperties.class})
 public class FileSystemApplication {
-	
-	@Autowired
-	private StorageProperties prop;
-	
-	@Autowired
-	QiniuService qiniuService;
-	
-	@Autowired
-	AliService aliService;
-	
-	@Autowired
-	FastdfsServcice fastdfsServcice;
-	
-	@Autowired
-	MongoService mongoService;
-	
-//	@Autowired
-//	SeaweedfsService seaweedfsService;
-	
-	public static void main(String[] args) {
-		log.info("-----------------------启动开始-------------------------");
-		SpringApplication.run(FileSystemApplication.class, args);
-		log.info("-----------------------启动完毕-------------------------");
-	}
-	
-	@Bean
+
+    @Autowired
+    private StorageProperties prop;
+
+    @Autowired
+    QiniuService qiniuService;
+
+    @Autowired
+    AliService aliService;
+
+    @Autowired
+    FastdfsServcice fastdfsServcice;
+
+    @Autowired
+    MongoService mongoService;
+
+    // @Autowired
+    // SeaweedfsService seaweedfsService;
+
+    public static void main(String[] args) {
+        log.info("-----------------------启动开始-------------------------");
+        SpringApplication.run(FileSystemApplication.class, args);
+        log.info("-----------------------启动完毕-------------------------");
+    }
+
+    @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
-            //storageService.deleteAll();
+            // storageService.deleteAll();
             storageService.init();
-            
-            initCache();
-            
             registerStoreSource();
         };
     }
-	
-	@Bean
+
+    @Bean
     public SpringDataDialect springDataDialect() {
         return new SpringDataDialect();
     }
 
-	public void registerStoreSource() {
-		if (prop.isToqiniu()){
-			StoreSource.RegisterListensers(qiniuService);
-		}
-		
-		if (prop.isToalioss()){
-			StoreSource.RegisterListensers(aliService);
-		}
-		
-		if (prop.isTofastdfs()){
-			StoreSource.RegisterListensers(fastdfsServcice);
-		}
-		
-		if (prop.isTomongodb()){
-			StoreSource.RegisterListensers(mongoService);
-		}		
-		
-		if (prop.isToseaweedfs()){
-//			StoreSource.RegisterListensers(seaweedfsService);
-		}
-	}
+    public void registerStoreSource() {
+        if (prop.isToqiniu()) {
+            StoreSource.RegisterListensers(qiniuService);
+        }
 
-	public void initCache() {
-		//TODO  cache test
-		UsesCache.files = 1000000;
-		UsesCache.groups = 1000;
-		UsesCache.usedspace = 1000000000;
-	}
-	
-	
+        if (prop.isToalioss()) {
+            StoreSource.RegisterListensers(aliService);
+        }
+
+        if (prop.isTofastdfs()) {
+            StoreSource.RegisterListensers(fastdfsServcice);
+        }
+
+        if (prop.isTomongodb()) {
+            StoreSource.RegisterListensers(mongoService);
+        }
+
+        if (prop.isToseaweedfs()) {
+            // StoreSource.RegisterListensers(seaweedfsService);
+        }
+    }
 }
-
-

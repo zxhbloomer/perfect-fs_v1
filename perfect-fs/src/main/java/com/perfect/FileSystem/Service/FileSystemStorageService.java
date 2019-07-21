@@ -4,7 +4,6 @@ import com.perfect.filesystem.Exception.StorageException;
 import com.perfect.filesystem.Exception.StorageFileNotFoundException;
 import com.perfect.filesystem.Propert.StorageProperties;
 import com.perfect.filesystem.Utils.DateTimeUtil;
-import com.perfect.filesystem.myfs.util.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -39,8 +38,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile multipartFile, String fileName) {
-        String fileUuid = UuidUtil.randomUUID();
+    public String store(String fileUuid, MultipartFile multipartFile, String fileName) {
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
         if (prop.isRename()) {
@@ -59,12 +57,14 @@ public class FileSystemStorageService implements StorageService {
 //                Files.copy(inputStream, this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
 //            }
             // 获取路径
-            File resultFile = new File(getServerAbsolutePath(strRootPath, fileUuid, fileName));
-            File parentDir = resultFile.getParentFile();
+            String filePath = getServerAbsolutePath(strRootPath, fileUuid, fileName);
+            File tmpFile = new File(filePath);
+            File parentDir = tmpFile.getParentFile();
             if ((parentDir != null) && (!parentDir.exists())) {
                 parentDir.mkdirs();
             }
-            multipartFile.transferTo(resultFile);
+            multipartFile.transferTo(new File(tmpFile.getAbsolutePath()));
+            return filePath;
         } catch (IOException e) {
             throw new StorageException("保存文件发生错误：" + filename, e);
         }
