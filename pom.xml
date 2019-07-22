@@ -90,6 +90,11 @@
         <version>${project.build.springbootversion}</version>
       </dependency>
       <dependency>
+        <groupId>org.springframework.security.oauth.boot</groupId>
+        <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        <version>${project.build.springbootversion}</version>
+      </dependency>
+      <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>8.0.15</version>

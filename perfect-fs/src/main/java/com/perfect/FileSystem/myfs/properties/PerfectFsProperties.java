@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @author zxh
  */
 @EnableConfigurationProperties({PerfectFsProperties.class})
-@ConfigurationProperties(prefix = "perfect.filesystem")
+@ConfigurationProperties(prefix = "perfect.fs")
 @Data
 public class PerfectFsProperties {
     /**

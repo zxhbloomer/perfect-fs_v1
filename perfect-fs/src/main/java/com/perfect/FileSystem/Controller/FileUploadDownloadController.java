@@ -10,6 +10,9 @@ import com.perfect.filesystem.File.UploadResult;
 import com.perfect.filesystem.Propert.StorageProperties;
 import com.perfect.filesystem.Service.FileSystemStorageService;
 import com.perfect.filesystem.Utils.HttpHelper;
+import com.perfect.filesystem.myfs.bean.JSONResult;
+import com.perfect.filesystem.myfs.bean.pojo.UploadFileResultPojo;
+import com.perfect.filesystem.myfs.util.ResultUtil;
 import com.perfect.filesystem.myfs.util.UuidUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+/**
+ * @author zxh
+ */
 @Controller
 public class FileUploadDownloadController {
     @Autowired
@@ -96,7 +102,7 @@ public class FileUploadDownloadController {
 
     @ApiOperation(value = "用于外接Post上传请求，不重定向")
     @PostMapping("/fileUploadPost")
-    public ResponseEntity<String> handleFileUploadPost(MultipartHttpServletRequest request, @RequestParam int appid,
+    public ResponseEntity<JSONResult<UploadFileResultPojo>> handleFileUploadPost(MultipartHttpServletRequest request, @RequestParam int appid,
         @RequestParam String username, @RequestParam String groupid) {
         Iterator<String> itr = request.getFileNames();
         MultipartFile file = request.getFile(itr.next()); // 只取一个文件，不取多个
@@ -114,9 +120,13 @@ public class FileUploadDownloadController {
         String fileUuid = UuidUtil.randomUUID();
 
         Map<String,Object> map = doUpload(fileUuid, file, finalFilename);
-        dbSave(map, fileUuid, appid, username, groupid, file, fileName);
+        Diskfile dbFile = dbSave(map, fileUuid, appid, username, groupid, file, fileName);
 
-        return new ResponseEntity<String>(fileName, HttpStatus.OK);
+        UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
+        uploadFileResultPojo.setFileName(dbFile.getFileName());
+        uploadFileResultPojo.setFileSize(dbFile.getFileSize().longValue());
+        uploadFileResultPojo.setFileUuid(dbFile.getFileid());
+        return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));
     }
 
     public Map<String,Object> doUpload(String fileUuid, MultipartFile file, final String finalFilename) {
@@ -147,7 +157,7 @@ public class FileUploadDownloadController {
         return rtn;
     }
 
-    public void dbSave(Map<String,Object> map, String uuid, int appid, String username, String groupid, MultipartFile file, String fileName) {
+    public Diskfile dbSave(Map<String,Object> map, String uuid, int appid, String username, String groupid, MultipartFile file, String fileName) {
         // 数据库存储
         Diskfile dbFile = new Diskfile();
         String fileId = uuid;
@@ -172,6 +182,8 @@ public class FileUploadDownloadController {
         }
 
         diskfileRepository.save(dbFile);
+
+        return dbFile;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
