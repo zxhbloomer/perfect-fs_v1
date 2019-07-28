@@ -10,6 +10,10 @@ import com.perfect.filesystem.File.UploadResult;
 import com.perfect.filesystem.Propert.StorageProperties;
 import com.perfect.filesystem.Service.FileSystemStorageService;
 import com.perfect.filesystem.Utils.HttpHelper;
+import com.perfect.filesystem.config.annotation.SysLog;
+import com.perfect.filesystem.myfs.bean.JSONResult;
+import com.perfect.filesystem.myfs.bean.pojo.UploadFileResultPojo;
+import com.perfect.filesystem.myfs.util.ResultUtil;
 import com.perfect.filesystem.myfs.util.UuidUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +35,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+/**
+ * @author zhangxh
+ */
 @Controller
 public class FileUploadDownloadController {
     @Autowired
@@ -86,7 +91,7 @@ public class FileUploadDownloadController {
         final String finalFilename = fileName;
 
         String fileUuid = UuidUtil.randomUUID();
-        Map<String,Object> map = doUpload(fileUuid, file, finalFilename);
+        Map<String, Object> map = doUpload(fileUuid, file, finalFilename);
         dbSave(map, fileUuid, appid, username, groupid, file, fileName);
 
         redirectAttributes.addFlashAttribute("message", "上传成功: " + file.getOriginalFilename());
@@ -95,9 +100,11 @@ public class FileUploadDownloadController {
     }
 
     @ApiOperation(value = "用于外接Post上传请求，不重定向")
-    @PostMapping("/fileUploadPost")
-    public ResponseEntity<String> handleFileUploadPost(MultipartHttpServletRequest request, @RequestParam int appid,
-        @RequestParam String username, @RequestParam String groupid) {
+    @PostMapping("/api/v1/fileUploadPost")
+    public ResponseEntity<String> handleFileUploadPost(MultipartHttpServletRequest request,
+                                                       @RequestParam(value = "appid", required = false) int appid,
+                                                       @RequestParam(value = "username", required = false) String username,
+                                                       @RequestParam(value = "groupid", required = false) String groupid) {
         Iterator<String> itr = request.getFileNames();
         MultipartFile file = request.getFile(itr.next()); // 只取一个文件，不取多个
         String fileName = file.getOriginalFilename();
@@ -113,19 +120,55 @@ public class FileUploadDownloadController {
 
         String fileUuid = UuidUtil.randomUUID();
 
-        Map<String,Object> map = doUpload(fileUuid, file, finalFilename);
+        Map<String, Object> map = doUpload(fileUuid, file, finalFilename);
         dbSave(map, fileUuid, appid, username, groupid, file, fileName);
 
         return new ResponseEntity<String>(fileName, HttpStatus.OK);
     }
 
-    public Map<String,Object> doUpload(String fileUuid, MultipartFile file, final String finalFilename) {
-        Map<String,Object> rtn = new HashMap<>();
+    @SysLog("文件上传")
+    @ApiOperation("文件上传")
+    @PostMapping("/api/v1/file/upload")
+    @ResponseBody
+    public ResponseEntity<JSONResult<UploadFileResultPojo>> upload(
+                                                        MultipartHttpServletRequest request,
+                                                        @RequestParam(value = "appid", required = false) int appid,
+                                                        @RequestParam(value = "username", required = false) String username,
+                                                        @RequestParam(value = "groupid", required = false) String groupid) {
+        Iterator<String> itr = request.getFileNames();
+        MultipartFile file = request.getFile(itr.next()); // 只取一个文件，不取多个
+        String fileName = file.getOriginalFilename();
+
+        if (prop.isRename()) {
+            fileName = username + "_" + file.getOriginalFilename();
+            if (groupid != null && !groupid.isEmpty()) {
+                fileName = groupid + "_" + file.getOriginalFilename();
+            }
+        }
+
+        final String finalFilename = fileName;
+
+        String fileUuid = UuidUtil.randomUUID();
+
+
+        Map<String, Object> map = doUpload(fileUuid, file, finalFilename);
+        dbSave(map, fileUuid, appid, username, groupid, file, fileName);
+
+        UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
+        uploadFileResultPojo.setFileName(file.getOriginalFilename());
+        uploadFileResultPojo.setFileSize(file.getSize());
+        uploadFileResultPojo.setFileUuid(fileUuid);
+        uploadFileResultPojo.setUrl(map.get("local").toString());
+        return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));
+    }
+
+    public Map<String, Object> doUpload(String fileUuid, MultipartFile file, final String finalFilename) {
+        Map<String, Object> rtn = new HashMap<>();
 
         // 磁盘存储
         if (prop.isTodisk()) {
             String filePath = storageService.store(fileUuid, file, finalFilename);
-            rtn.put("local",filePath);
+            rtn.put("local", filePath);
         }
 
         // 第三方存储
@@ -136,18 +179,18 @@ public class FileUploadDownloadController {
             if (ufe != null) {
                 for (FileListener fl : StoreSource.getListensers()) {
                     UploadResult uploadResult = fl.Store(ufe);
-                    rtn.put("other",uploadResult);
+                    rtn.put("other", uploadResult);
                 }
             }
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
         return rtn;
     }
 
-    public void dbSave(Map<String,Object> map, String uuid, int appid, String username, String groupid, MultipartFile file, String fileName) {
+    public void dbSave(Map<String, Object> map, String uuid, int appid, String username, String groupid,
+        MultipartFile file, String fileName) {
         // 数据库存储
         Diskfile dbFile = new Diskfile();
         String fileId = uuid;
