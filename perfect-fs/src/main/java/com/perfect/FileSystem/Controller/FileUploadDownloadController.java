@@ -34,8 +34,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
@@ -81,7 +79,9 @@ public class FileUploadDownloadController {
         String fsType = FS_DISK;
         String fsUri = "";
         String fsType2Url = "";
-
+        String appContext = request.getContextPath();
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+ request.getServerPort() + appContext + "/";
+        fsType2Url = basePath + dbFile.getUrldisk();
         if (prop.isToqiniu()) {
             fsType=FS_QINIU;
             fsUri = dbFile.getUrlqiniu();
@@ -96,13 +96,15 @@ public class FileUploadDownloadController {
         if (prop.isTofastdfs()) {
             fsType=FS_FASTDFS;
             fsUri = dbFile.getUrlfastdfs();
-            fsType2Url = dbFile.getUrlalioss();
+            fsType2Url = basePath + dbFile.getUrlalioss();
         }
 
         if (prop.isTomongodb()) {
             fsType=FS_MONGODB;
-            fsUri = dbFile.getUrlmongodb();
+            fsUri = basePath + dbFile.getUrlmongodb();
         }
+
+
 
         UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
         uploadFileResultPojo.setFileName(dbFile.getFileName());
@@ -113,7 +115,7 @@ public class FileUploadDownloadController {
         uploadFileResultPojo.setFsType(fsType);
 
         uploadFileResultPojo.setUriFs(fsUri);
-        uploadFileResultPojo.setFsType2Url();
+        uploadFileResultPojo.setFsType2Url(fsType2Url);
 
 
         return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));

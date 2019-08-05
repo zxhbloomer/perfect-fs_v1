@@ -25,14 +25,24 @@ public class UploadFileResultPojo
      */
     private Long fileSize;
     /**
-     * url
+     * uri Disk
      */
-    private String url;
+    private String uriDisk;
 
-//    public String toString()
-//    {
-//        StringBuffer result = new StringBuffer().append(getClass().getName()).append(": fileUuid = '").append(this.fileUuid).append("'").append(", fileName = '").append(this.fileName).append("'").append(", fileSize = ").append(this.fileSize).append("'");
-//
-//        return result.toString();
-//    }
+    /**
+     * 除了disk，其他的类型
+     * mongodb,qiniu,fastdfs,alioss
+     */
+    private String fsType;
+
+    /**
+     * url fs
+     */
+    private String uriFs;
+
+    /**
+     * 除了disk，其他的类型
+     * mongodb,qiniu,fastdfs,alioss所对应的url
+     */
+    private String fsType2Url;
 }
