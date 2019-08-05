@@ -43,6 +43,12 @@ import java.util.stream.Collectors;
  */
 @Controller
 public class FileUploadDownloadController {
+    public static final String FS_DISK = "disk";
+    public static final String FS_MONGODB = "mongodb";
+    public static final String FS_QINIU = "qiniu";
+    public static final String FS_FASTDFS = "fastdfs";
+    public static final String FS_ALIOSS = "alioss";
+
     @Autowired
     private FileSystemStorageService storageService;
     @Autowired
@@ -72,10 +78,44 @@ public class FileUploadDownloadController {
         Map<String,Object> map = doUpload(fileUuid, file, finalFilename);
         Diskfile dbFile = dbSave(map, fileUuid, appid, username, groupid, file, fileName);
 
+        String fsType = FS_DISK;
+        String fsUri = "";
+        String fsType2Url = "";
+
+        if (prop.isToqiniu()) {
+            fsType=FS_QINIU;
+            fsUri = dbFile.getUrlqiniu();
+            fsType2Url = dbFile.getUrlqiniu();
+        }
+        if (prop.isToalioss()) {
+            fsType=FS_ALIOSS;
+            fsUri = dbFile.getUrlalioss();
+            fsType2Url = dbFile.getUrlalioss();
+        }
+
+        if (prop.isTofastdfs()) {
+            fsType=FS_FASTDFS;
+            fsUri = dbFile.getUrlfastdfs();
+            fsType2Url = dbFile.getUrlalioss();
+        }
+
+        if (prop.isTomongodb()) {
+            fsType=FS_MONGODB;
+            fsUri = dbFile.getUrlmongodb();
+        }
+
         UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
         uploadFileResultPojo.setFileName(dbFile.getFileName());
         uploadFileResultPojo.setFileSize(dbFile.getFileSize().longValue());
         uploadFileResultPojo.setFileUuid(dbFile.getFileid());
+
+        uploadFileResultPojo.setUriDisk(dbFile.getUrldisk());
+        uploadFileResultPojo.setFsType(fsType);
+
+        uploadFileResultPojo.setUriFs(fsUri);
+        uploadFileResultPojo.setFsType2Url();
+
+
         return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));
     }
 
