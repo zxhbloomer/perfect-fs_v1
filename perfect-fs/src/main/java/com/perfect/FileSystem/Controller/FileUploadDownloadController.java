@@ -50,6 +50,35 @@ public class FileUploadDownloadController {
     @Autowired
     private DiskfileRepository diskfileRepository;
 
+    @ApiOperation(value = "用于外接Post上传请求，不重定向")
+    @PostMapping("/api/v1/file/upload")
+    public ResponseEntity<JSONResult<UploadFileResultPojo>> upload(MultipartHttpServletRequest request, @RequestParam int appid,
+        @RequestParam String username, @RequestParam String groupid) {
+        Iterator<String> itr = request.getFileNames();
+        MultipartFile file = request.getFile(itr.next()); // 只取一个文件，不取多个
+        String fileName = file.getOriginalFilename();
+
+        if (prop.isRename()) {
+            fileName = username + "_" + file.getOriginalFilename();
+            if (groupid != null && !groupid.isEmpty()) {
+                fileName = groupid + "_" + file.getOriginalFilename();
+            }
+        }
+
+        final String finalFilename = fileName;
+
+        String fileUuid = UuidUtil.randomUUID();
+
+        Map<String,Object> map = doUpload(fileUuid, file, finalFilename);
+        Diskfile dbFile = dbSave(map, fileUuid, appid, username, groupid, file, fileName);
+
+        UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
+        uploadFileResultPojo.setFileName(dbFile.getFileName());
+        uploadFileResultPojo.setFileSize(dbFile.getFileSize().longValue());
+        uploadFileResultPojo.setFileUuid(dbFile.getFileid());
+        return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));
+    }
+
     @ApiOperation(value = "文件上传后在上传页面展示文件")
     @GetMapping("/files")
     public String listUploadedFiles(Model model) throws IOException {
