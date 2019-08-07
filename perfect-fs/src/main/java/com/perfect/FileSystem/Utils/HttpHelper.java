@@ -50,14 +50,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
- 
+
 
 public class HttpHelper {
     private static Logger logger = LoggerFactory.getLogger(HttpHelper.class);
     private static final String DEFAULT_CHARSET = "UTF-8";// 默认请求编码
     private static final int DEFAULT_SOCKET_TIMEOUT = 5000;// 默认等待响应时间(毫秒)
     private static final int DEFAULT_RETRY_TIMES = 0;// 默认执行重试的次数
- 
+
     /**
      * 创建一个默认的可关闭的HttpClient
      *
@@ -66,7 +66,7 @@ public class HttpHelper {
     public static CloseableHttpClient createHttpClient() {
         return createHttpClient(DEFAULT_RETRY_TIMES, DEFAULT_SOCKET_TIMEOUT);
     }
- 
+
     /**
      * 创建一个可关闭的HttpClient
      *
@@ -76,7 +76,7 @@ public class HttpHelper {
     public static CloseableHttpClient createHttpClient(int socketTimeout) {
         return createHttpClient(DEFAULT_RETRY_TIMES, socketTimeout);
     }
- 
+
     /**
      * 创建一个可关闭的HttpClient
      *
@@ -105,7 +105,7 @@ public class HttpHelper {
         CloseableHttpClient httpClient = httpClientBuilder.setConnectionManager(connectionManager).setDefaultRequestConfig(defaultRequestConfig).build();
         return httpClient;
     }
- 
+
     /**
      * 执行GET请求
      *
@@ -119,7 +119,7 @@ public class HttpHelper {
         CloseableHttpClient httpClient = createHttpClient(socketTimeout);
         return executeGet(httpClient, url, null, null, charset, true);
     }
- 
+
     /**
      * 执行GET请求
      *
@@ -133,7 +133,7 @@ public class HttpHelper {
         CloseableHttpClient httpClient = createHttpClient(socketTimeout);
         return executeGetString(httpClient, url, null, null, charset, true);
     }
- 
+
     /**
      * 执行HttpGet请求
      *
@@ -173,7 +173,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * @param httpClient httpclient对象
      * @param url        执行GET的URL地址
@@ -195,7 +195,7 @@ public class HttpHelper {
         }
         return httpClient.execute(get);
     }
- 
+
     /**
      * 执行HttpGet请求
      *
@@ -232,7 +232,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * 简单方式执行POST请求
      *
@@ -247,7 +247,7 @@ public class HttpHelper {
         CloseableHttpClient httpClient = createHttpClient(socketTimeout);
         return executePost(httpClient, url, paramsObj, null, null, charset, true);
     }
- 
+
     /**
      * 简单方式执行POST请求
      *
@@ -262,7 +262,7 @@ public class HttpHelper {
         CloseableHttpClient httpClient = createHttpClient(socketTimeout);
         return executePostString(httpClient, url, paramsObj, null, null, charset, true);
     }
- 
+
     /**
      * 执行HttpPost请求
      *
@@ -303,7 +303,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * 执行HttpPost请求
      *
@@ -341,7 +341,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * @param httpClient HttpClient对象
      * @param url        请求的网络地址
@@ -370,7 +370,7 @@ public class HttpHelper {
         }
         return httpClient.execute(post);
     }
- 
+
     /**
      * 执行文件上传
      *
@@ -384,10 +384,10 @@ public class HttpHelper {
      * @throws IOException
      */
     public static HttpResult executeUploadFile(CloseableHttpClient httpClient,
-    		String remoteFileUrl, 
-    		String localFilePath, 		
-    		String appid, 
-    		String username, 
+    		String remoteFileUrl,
+    		String localFilePath,
+    		String appid,
+    		String username,
     		String groupid,
     		boolean closeHttpClient,
     		String charset   ) throws IOException {
@@ -413,7 +413,7 @@ public class HttpHelper {
             		.setCharset(CharsetUtils.get("UTF-8")).build();
 
             HttpPost httpPost = new HttpPost(remoteFileUrl);
-            
+
             httpPost.setEntity(reqEntity);
             httpResponse = httpClient.execute(httpPost);
             Integer statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -434,7 +434,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * 执行文件上传(以二进制流方式)
      *
@@ -500,7 +500,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * 执行文件下载
      *
@@ -559,7 +559,7 @@ public class HttpHelper {
             }
         }
     }
- 
+
     /**
      * 根据参数获取请求的Entity
      *
@@ -596,7 +596,7 @@ public class HttpHelper {
         }
         return null;
     }
- 
+
     /**
      * 从结果中获取出String数据
      *
@@ -619,7 +619,7 @@ public class HttpHelper {
         EntityUtils.consume(entity);// 关闭应该关闭的资源，适当的释放资源 ;也可以把底层的流给关闭了
         return result;
     }
- 
+
     /**
      * 转化请求编码
      *
@@ -629,7 +629,7 @@ public class HttpHelper {
     private static String getCharset(String charset) {
         return charset == null ? DEFAULT_CHARSET : charset;
     }
- 
+
     /**
      * 将map类型参数转化为NameValuePair集合方式
      *
@@ -646,7 +646,7 @@ public class HttpHelper {
         }
         return list;
     }
- 
+
     /**
      * 开启SSL支持
      */
@@ -659,30 +659,30 @@ public class HttpHelper {
             e.printStackTrace();
         }
     }
- 
+
     private static SSLConnectionSocketFactory socketFactory;
- 
+
     // HTTPS网站一般情况下使用了安全系数较低的SHA-1签名，因此首先我们在调用SSL之前需要重写验证方法，取消检测SSL。
     private static TrustManager manager = new X509TrustManager() {
- 
+
         @Override
         public X509Certificate[] getAcceptedIssuers() {
             return null;
         }
- 
+
         @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             //
- 
+
         }
- 
+
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             //
- 
+
         }
     };
- 
+
     /**
      * 为httpclient设置重试信息
      *
@@ -725,5 +725,5 @@ public class HttpHelper {
         };
         httpClientBuilder.setRetryHandler(myRetryHandler);
     }
- 
+
 }
