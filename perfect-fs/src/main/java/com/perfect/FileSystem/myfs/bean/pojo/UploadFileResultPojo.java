@@ -45,4 +45,11 @@ public class UploadFileResultPojo
      * mongodb,qiniu,fastdfs,alioss所对应的url
      */
     private String fsType2Url;
+
+//    public String toString()
+//    {
+//        StringBuffer result = new StringBuffer().append(getClass().getName()).append(": fileUuid = '").append(this.fileUuid).append("'").append(", fileName = '").append(this.fileName).append("'").append(", fileSize = ").append(this.fileSize).append("'");
+//
+//        return result.toString();
+//    }
 }
