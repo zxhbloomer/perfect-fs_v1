@@ -10,6 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @ConfigurationProperties(prefix = "storage")
 public class StorageProperties {
 
+	private String fsName = "fs";
+	private String fsBaseUrl ;
 	private String location = "uploadfiles";
 	private String downloadto ="";
 	private String downloadurl ="";
@@ -45,7 +47,23 @@ public class StorageProperties {
 	private String aliaccesskeysecret = "";
 	private String alibucketname = "";
 	private String alidownloadkey = "";
-	
+
+	public String getFsBaseUrl() {
+		return fsBaseUrl;
+	}
+
+	public void setFsBaseUrl(String fsBaseUrl) {
+		this.fsBaseUrl = fsBaseUrl;
+	}
+
+	public String getFsName() {
+		return fsName;
+	}
+
+	public void setFsName(String fsName) {
+		this.fsName = fsName;
+	}
+
 	public String getDownloadto() {
 		return downloadto;
 	}

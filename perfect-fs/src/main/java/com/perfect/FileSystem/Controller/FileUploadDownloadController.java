@@ -54,12 +54,21 @@ public class FileUploadDownloadController {
     @Autowired
     private DiskfileRepository diskfileRepository;
 
+    /**
+     * 现阶段使用的方法
+     * @param request
+     * @param appid
+     * @param username
+     * @param groupid
+     * @return
+     */
     @ApiOperation(value = "用于外接Post上传请求，不重定向")
     @PostMapping("/api/v1/file/upload")
     public ResponseEntity<JSONResult<UploadFileResultPojo>> upload(MultipartHttpServletRequest request, @RequestParam int appid,
         @RequestParam String username, @RequestParam String groupid) {
         Iterator<String> itr = request.getFileNames();
-        MultipartFile file = request.getFile(itr.next()); // 只取一个文件，不取多个
+        // 只取一个文件，不取多个
+        MultipartFile file = request.getFile(itr.next());
         String fileName = file.getOriginalFilename();
 
         if (prop.isRename()) {
@@ -115,7 +124,7 @@ public class FileUploadDownloadController {
         uploadFileResultPojo.setFsType(fsType);
 
         uploadFileResultPojo.setUriFs(fsUri);
-        uploadFileResultPojo.setFsType2Url(fsType2Url);
+        uploadFileResultPojo.setFsType2Url(prop.getFsBaseUrl() + dbFile.getFileUrl());
 
 
         return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));
@@ -243,6 +252,7 @@ public class FileUploadDownloadController {
         dbFile.setUploadDate(new Date());
         dbFile.setUploadUser(username);
         dbFile.setUrldisk(map.get("local").toString());
+        dbFile.setFileUrl(storageService.getFileUrl());
 
         if (prop.isToqiniu()) {
             dbFile.setUrlqiniu(prop.getQiniuprefix() + fileName);

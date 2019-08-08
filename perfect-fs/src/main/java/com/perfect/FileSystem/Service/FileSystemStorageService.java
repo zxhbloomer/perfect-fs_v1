@@ -28,6 +28,9 @@ public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
     private final String strRootPath;
+
+    private String fileUrl;
+
     @Autowired
     private StorageProperties prop;
 
@@ -161,6 +164,14 @@ public class FileSystemStorageService implements StorageService {
     }
 
     /**
+     * 文件url
+     * @return
+     */
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    /**
      *
      * @param fileId
      * @return
@@ -174,6 +185,7 @@ public class FileSystemStorageService implements StorageService {
 
     public String getServerAbsolutePath(String filePath,String fileUuid, String fileName) {
         String absoluteHostPath = filePath + File.separator + generateServerPath(fileUuid, fileName);
+        fileUrl = prop.getFsName() + "/" + generateServerPath(fileUuid, fileName).replace(File.separator, "/");
         return absoluteHostPath;
     }
 }
