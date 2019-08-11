@@ -66,7 +66,7 @@ public class FileSystemStorageService implements StorageService {
             if ((parentDir != null) && (!parentDir.exists())) {
                 parentDir.mkdirs();
             }
-            multipartFile.transferTo(new File(tmpFile.getAbsolutePath()));
+            multipartFile.transferTo(new File(tmpFile.getAbsolutePath()).toPath());
             return filePath;
         } catch (IOException e) {
             throw new StorageException("保存文件发生错误：" + filename, e);
