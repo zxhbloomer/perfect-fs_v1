@@ -18,11 +18,11 @@ public class SysLogPojo implements Serializable {
 
     private static final long serialVersionUID = 3217907220556047829L;
 
-    private String className;
+    private String class_name;
 
-    private String httpMethod;
+    private String http_method;
 
-    private String classMethod;
+    private String class_method;
 
     private String params;
 

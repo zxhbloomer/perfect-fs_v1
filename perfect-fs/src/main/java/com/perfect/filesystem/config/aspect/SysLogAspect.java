@@ -1,11 +1,10 @@
 package com.perfect.filesystem.config.aspect;
 
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSON;
+import com.perfect.filesystem.config.annotation.SysLog;
+import com.perfect.filesystem.myfs.bean.pojo.SysLogPojo;
+import com.perfect.filesystem.myfs.util.IPUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,12 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.alibaba.fastjson.JSON;
-import com.perfect.filesystem.config.annotation.SysLog;
-import com.perfect.filesystem.myfs.bean.pojo.SysLogPojo;
-import com.perfect.filesystem.myfs.util.IPUtil;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Aspect
 @Component
@@ -91,17 +88,17 @@ public class SysLogAspect {
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         Method method = signature.getMethod();
         SysLog sysLog = method.getAnnotation(SysLog.class);
-        SysLogPojo sysLogBO = SysLogPojo.builder().className(joinPoint.getTarget().getClass().getName())
-            .httpMethod(request.getMethod()).classMethod(((MethodSignature)joinPoint.getSignature()).getName())
+        SysLogPojo sysLogBO = SysLogPojo.builder().class_name(joinPoint.getTarget().getClass().getName())
+            .http_method(request.getMethod()).class_method(((MethodSignature)joinPoint.getSignature()).getName())
             .params(JSON.toJSONString(joinPoint.getArgs())).execTime(time).remark(sysLog.value())
             .createDate(LocalDateTime.now()).url(request.getRequestURL().toString()).ip(IPUtil.getIpAdd()).build();
         log.debug("======================日志开始================================");
         log.debug("日志名称         : " + sysLogBO.getRemark());
         log.debug("URL             : " + sysLogBO.getUrl());
-        log.debug("HTTP方法         : " + sysLogBO.getHttpMethod());
+        log.debug("HTTP方法         : " + sysLogBO.getHttp_method());
         log.debug("IP               : " + sysLogBO.getIp());
-        log.debug("类名             : " + sysLogBO.getClassName());
-        log.debug("类方法           : " + sysLogBO.getClassMethod());
+        log.debug("类名             : " + sysLogBO.getClass_name());
+        log.debug("类方法           : " + sysLogBO.getClass_method());
         log.debug("执行时间         : " + new BigDecimal(sysLogBO.getExecTime()).divide(BigDecimal.valueOf(1000)).toString()
             + "秒");
         log.debug("执行日期         : " + sysLogBO.getCreateDate());

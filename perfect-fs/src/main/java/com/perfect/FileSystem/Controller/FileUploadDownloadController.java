@@ -117,7 +117,7 @@ public class FileUploadDownloadController {
 
         UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
         uploadFileResultPojo.setFileName(dbFile.getFileName());
-        uploadFileResultPojo.setFileSize(dbFile.getFileSize().longValue());
+        uploadFileResultPojo.setFile_size(dbFile.getFileSize().longValue());
         uploadFileResultPojo.setFileUuid(dbFile.getFileid());
 
         uploadFileResultPojo.setUriDisk(dbFile.getUrldisk());
@@ -204,7 +204,7 @@ public class FileUploadDownloadController {
 
         UploadFileResultPojo uploadFileResultPojo = new UploadFileResultPojo();
         uploadFileResultPojo.setFileName(dbFile.getFileName());
-        uploadFileResultPojo.setFileSize(dbFile.getFileSize().longValue());
+        uploadFileResultPojo.setFile_size(dbFile.getFileSize().longValue());
         uploadFileResultPojo.setFileUuid(dbFile.getFileid());
         return ResponseEntity.ok().body(ResultUtil.success(uploadFileResultPojo));
     }
