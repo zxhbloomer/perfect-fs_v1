@@ -23,7 +23,7 @@ public class UploadFileResultPojo
     /**
      * 文件大小(B)
      */
-    private Long fileSize;
+    private Long file_size;
     /**
      * uri Disk
      */
