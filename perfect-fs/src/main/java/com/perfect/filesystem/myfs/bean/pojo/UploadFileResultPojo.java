@@ -23,7 +23,7 @@ public class UploadFileResultPojo
     /**
      * 文件大小(B)
      */
-    private Long file_size;
+    private Long fileSize;
     /**
      * uri Disk
      */
@@ -48,7 +48,7 @@ public class UploadFileResultPojo
 
 //    public String toString()
 //    {
-//        StringBuffer result = new StringBuffer().append(getClass().getName()).append(": fileUuid = '").append(this.fileUuid).append("'").append(", fileName = '").append(this.fileName).append("'").append(", file_size = ").append(this.file_size).append("'");
+//        StringBuffer result = new StringBuffer().append(getClass().getName()).append(": fileUuid = '").append(this.fileUuid).append("'").append(", fileName = '").append(this.fileName).append("'").append(", fileSize = ").append(this.fileSize).append("'");
 //
 //        return result.toString();
 //    }
